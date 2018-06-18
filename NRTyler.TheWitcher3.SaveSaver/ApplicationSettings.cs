@@ -1,12 +1,12 @@
-﻿// ************************************************************************
+﻿// ***********************************************************************
 // Assembly         : NRTyler.TheWitcher3.SaveSaver
-// 
+//
 // Author           : Nicholas Tyler
 // Created          : 05-16-2018
-// 
+//
 // Last Modified By : Nicholas Tyler
-// Last Modified On : 05-16-2018
-// 
+// Last Modified On : 06-18-2018
+//
 // License          : MIT License
 // ***********************************************************************
 
@@ -66,7 +66,7 @@ namespace NRTyler.TheWitcher3.SaveSaver
         }
 
         /// <summary>
-        /// Gets or sets the number of backups to keep before the oldest start to get pruned away.
+        /// Gets or sets the number of backups to keep before the oldest start to get pruned.
         /// </summary>
         [DataMember]
         public int BackupsToKeep

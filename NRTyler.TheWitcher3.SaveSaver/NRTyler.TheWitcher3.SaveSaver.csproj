@@ -7,7 +7,7 @@
     <ProjectGuid>{821A0642-72BF-4EAA-93A7-FB793A46491A}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>NRTyler.TheWitcher3.SaveSaver</RootNamespace>
-    <AssemblyName>NRTyler.TheWitcher3.SaveSaver</AssemblyName>
+    <AssemblyName>The Witcher 3 Backup Creator</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,11 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="NRTyler.CodeLibrary">
+    <Reference Include="NRTyler.CodeLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\NRTyler.CodeLibrary\NRTyler.CodeLibrary\bin\Debug\NRTyler.CodeLibrary.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
@@ -52,7 +55,6 @@
     <Compile Include="BackupCleaner.cs" />
     <Compile Include="BackupCreator.cs" />
     <Compile Include="BackupLabeller.cs" />
-    <Compile Include="FileCopier.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

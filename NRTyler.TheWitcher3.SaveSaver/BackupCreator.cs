@@ -1,17 +1,16 @@
-﻿// ************************************************************************
+﻿// ***********************************************************************
 // Assembly         : NRTyler.TheWitcher3.SaveSaver
-// 
+//
 // Author           : Nicholas Tyler
 // Created          : 05-17-2018
-// 
+//
 // Last Modified By : Nicholas Tyler
-// Last Modified On : 05-17-2018
-// 
+// Last Modified On : 06-18-2018
+//
 // License          : MIT License
 // ***********************************************************************
 
-using NRTyler.CodeLibrary.Extensions;
-using System.IO;
+using System.IO.Compression;
 
 namespace NRTyler.TheWitcher3.SaveSaver
 {
@@ -25,45 +24,20 @@ namespace NRTyler.TheWitcher3.SaveSaver
         private ApplicationSettings ApplicationSettings { get; }
 
         /// <summary>
-        /// Ensures that a folder labeled with the current day's date 
-        /// will be present so the backups can be stored properly.
-        /// </summary>
-        public DirectoryInfo CreateTodaysFolder()
-        {
-            var path     = ApplicationSettings.BackupLocation;
-            var fullPath = $"{path}/{BackupLabeller.GetValidDateFormat()}";
-
-            return DirectoryEx.CreateDirectoryIfNonexistent(fullPath);
-        }
-
-        /// <summary>
-        /// Creates a sub-folder that's labeled with the current time. 
-        /// This allows the user to know when the backups were made.
-        /// </summary>
-        /// <param name="directoryInfo">The directory where this sub-folder will be created.</param>
-        /// <returns>DirectoryInfo.</returns>
-        public DirectoryInfo CreateTimeSubfolder(DirectoryInfo directoryInfo)
-        {
-            var fullPath = $"{directoryInfo.FullName}/{BackupLabeller.GetValidTimeFormat()}";
-
-            return DirectoryEx.CreateDirectoryIfNonexistent(fullPath);
-        }
-
-        /// <summary>
         /// Creates a backup of the game files.
         /// </summary>
-        public void CreateBackup()
+        /// <param name="compressionLevel"> Specifies whether the compression operation emphasizes speed or compression size.</param>
+        public void CreateBackup(CompressionLevel compressionLevel)
         {
-            // Create the folder and sub-folder where the backups will be located.
-            var todaysDirectory  = CreateTodaysFolder();
-            var timeSubdirectory = CreateTimeSubfolder(todaysDirectory);
+            var validDate = BackupLabeller.GetValidDateFormat();
+            var validTime = BackupLabeller.GetValidTimeFormat(true);
 
-            // Instantiate the file copier and scan for what items need to be backed up.
-            var fileCopier  = new FileCopier(ApplicationSettings);
-            var filesToCopy = fileCopier.ScanSaveGameLocation();
+            var backupName = $"Backup for {validDate} at {validTime}";
 
-            // Cope the files.
-            fileCopier.CopyFiles(filesToCopy, timeSubdirectory);
+            var source      = ApplicationSettings.SaveLocation;
+            var destination = $"{ApplicationSettings.BackupLocation}/{backupName}.zip";
+
+            ZipFile.CreateFromDirectory(source, destination, compressionLevel, false);
         }
     }
 }
